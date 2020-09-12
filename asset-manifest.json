@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/BugTrackerProject/static/css/main.7f6d183d.chunk.css",
-    "main.js": "/BugTrackerProject/static/js/main.469183f6.chunk.js",
-    "main.js.map": "/BugTrackerProject/static/js/main.469183f6.chunk.js.map",
+    "main.js": "/BugTrackerProject/static/js/main.74699ad5.chunk.js",
+    "main.js.map": "/BugTrackerProject/static/js/main.74699ad5.chunk.js.map",
     "runtime-main.js": "/BugTrackerProject/static/js/runtime-main.2e5ba3e5.js",
     "runtime-main.js.map": "/BugTrackerProject/static/js/runtime-main.2e5ba3e5.js.map",
     "static/css/2.53159467.chunk.css": "/BugTrackerProject/static/css/2.53159467.chunk.css",
-    "static/js/2.9a1f7dfc.chunk.js": "/BugTrackerProject/static/js/2.9a1f7dfc.chunk.js",
-    "static/js/2.9a1f7dfc.chunk.js.map": "/BugTrackerProject/static/js/2.9a1f7dfc.chunk.js.map",
+    "static/js/2.0e3f2c2b.chunk.js": "/BugTrackerProject/static/js/2.0e3f2c2b.chunk.js",
+    "static/js/2.0e3f2c2b.chunk.js.map": "/BugTrackerProject/static/js/2.0e3f2c2b.chunk.js.map",
     "index.html": "/BugTrackerProject/index.html",
-    "precache-manifest.499730ccb4d09e8f07924e619b75d52c.js": "/BugTrackerProject/precache-manifest.499730ccb4d09e8f07924e619b75d52c.js",
+    "precache-manifest.e41eb410bdbcc81a99c202baa85646ad.js": "/BugTrackerProject/precache-manifest.e41eb410bdbcc81a99c202baa85646ad.js",
     "service-worker.js": "/BugTrackerProject/service-worker.js",
     "static/css/2.53159467.chunk.css.map": "/BugTrackerProject/static/css/2.53159467.chunk.css.map",
     "static/css/main.7f6d183d.chunk.css.map": "/BugTrackerProject/static/css/main.7f6d183d.chunk.css.map",
-    "static/js/2.9a1f7dfc.chunk.js.LICENSE.txt": "/BugTrackerProject/static/js/2.9a1f7dfc.chunk.js.LICENSE.txt",
+    "static/js/2.0e3f2c2b.chunk.js.LICENSE.txt": "/BugTrackerProject/static/js/2.0e3f2c2b.chunk.js.LICENSE.txt",
     "static/media/login.scss": "/BugTrackerProject/static/media/black-rock-tiles.21ab1413.jpg",
     "static/media/unnamed.webp": "/BugTrackerProject/static/media/unnamed.a812fbf5.webp"
   },
   "entrypoints": [
     "static/js/runtime-main.2e5ba3e5.js",
     "static/css/2.53159467.chunk.css",
-    "static/js/2.9a1f7dfc.chunk.js",
+    "static/js/2.0e3f2c2b.chunk.js",
     "static/css/main.7f6d183d.chunk.css",
-    "static/js/main.469183f6.chunk.js"
+    "static/js/main.74699ad5.chunk.js"
   ]
 }
