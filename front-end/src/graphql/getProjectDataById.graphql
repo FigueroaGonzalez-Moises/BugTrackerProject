@@ -1,0 +1,7 @@
+query getProjectDataById($projectid: String!) {
+    getProjectDataById(projectid: $projectid) {
+        title
+        projectid
+        description
+    }
+}

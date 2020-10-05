@@ -1,0 +1,13 @@
+query getTickets {
+    getTickets {
+        ticketid,
+        priority,
+        title,
+        description,
+        type,
+        submitter,
+        developer,
+        status,
+        belongsto
+    }
+}

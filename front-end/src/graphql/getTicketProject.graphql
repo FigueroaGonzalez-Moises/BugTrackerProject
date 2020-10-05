@@ -1,0 +1,6 @@
+query getTicketProject($ticketid: String!) {
+    getTicketProject(ticketid: $ticketid) {
+        ticketid
+        projectid
+    }
+}

@@ -1,0 +1,3 @@
+mutation setProjectDesc($projectid: String!, $description: String!) {
+    setProjectDesc(projectid: $projectid, description: $description)
+}

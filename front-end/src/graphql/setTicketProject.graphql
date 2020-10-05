@@ -1,0 +1,3 @@
+mutation setTicketProject($ticketid: String!, $projectid: String!) {
+    setTicketProject(ticketid: $ticketid, projectid: $projectid)
+}

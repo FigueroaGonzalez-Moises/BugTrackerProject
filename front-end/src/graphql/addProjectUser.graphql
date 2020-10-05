@@ -1,0 +1,3 @@
+mutation addProjectUser($projectid: String!, $userid: String!) {
+    addProjectUser(projectid: $projectid, userid: $userid)
+}
