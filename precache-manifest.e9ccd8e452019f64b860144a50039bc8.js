@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cb2fc2e5e744b374eb6cd07aad5ce35a",
+    "revision": "ccad1f64959de1270a9fc90f05a4fb68",
     "url": "/BugTrackerProject/index.html"
   },
   {
-    "revision": "d7320a8afa302613230e",
+    "revision": "096b01897e36708410db",
     "url": "/BugTrackerProject/static/css/2.53159467.chunk.css"
   },
   {
-    "revision": "4251cea3ad5d0d6d6e7f",
+    "revision": "5bb681bff6496ef31294",
     "url": "/BugTrackerProject/static/css/main.30b10a2a.chunk.css"
   },
   {
-    "revision": "d7320a8afa302613230e",
-    "url": "/BugTrackerProject/static/js/2.3738f243.chunk.js"
+    "revision": "096b01897e36708410db",
+    "url": "/BugTrackerProject/static/js/2.ec3a364f.chunk.js"
   },
   {
     "revision": "597a63747f318a9e58a5559c0456a793",
-    "url": "/BugTrackerProject/static/js/2.3738f243.chunk.js.LICENSE.txt"
+    "url": "/BugTrackerProject/static/js/2.ec3a364f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4251cea3ad5d0d6d6e7f",
-    "url": "/BugTrackerProject/static/js/main.70783f1f.chunk.js"
+    "revision": "5bb681bff6496ef31294",
+    "url": "/BugTrackerProject/static/js/main.1279830c.chunk.js"
   },
   {
     "revision": "ae48af740c77c7cba8f9",
