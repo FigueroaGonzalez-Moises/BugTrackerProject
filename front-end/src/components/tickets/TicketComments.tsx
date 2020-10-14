@@ -57,6 +57,7 @@ const TicketComments: React.FC = () => {
         }
     };
 
+    // eslint-disable-next-line
     const updateComment = async (commentid: number, updatedMessage: string) => {
         if (updatedMessage.length === 0) {
             M.toast({ html: "Failed!" });
@@ -93,7 +94,7 @@ const TicketComments: React.FC = () => {
 
     return (
         <>
-            <div className="detailsWrapper container-fluid">
+            <div className="container">
                 <div className="center-align table-wrapper">
                     <span className="table-header z-depth-2">
                         <h2 className="white-text noselect">

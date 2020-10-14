@@ -38,7 +38,7 @@ export const TicketDetails: React.FC = () => {
                 <Redirect to="/dashboard" />
             ) : (
                 <>
-                    <div className="detailsWrapper container-fluid">
+                    <div className="container ">
                         <div className="center-align table-wrapper">
                             <span className="table-header z-depth-2">
                                 <h2 className="white-text noselect">
@@ -112,7 +112,7 @@ export const TicketDetails: React.FC = () => {
                                     className="btn left footerBtn"
                                     onClick={() => history.goBack()}
                                 >
-                                    Go Back
+                                    Back
                                 </button>
                                 <a href={`#/edit-ticket:${id}`}>
                                     <button className="btn right footerBtn">

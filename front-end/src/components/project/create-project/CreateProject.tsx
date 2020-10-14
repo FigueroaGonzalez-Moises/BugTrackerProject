@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useGetUsersQuery, useAddProjectMutation } from "../../../generated/graphql";
+import {
+    useGetUsersQuery,
+    useAddProjectMutation,
+} from "../../../generated/graphql";
 import { useHistory } from "react-router-dom";
 import { useGetUsers } from "../../tickets/useGetUsers";
 
@@ -9,17 +12,17 @@ export const CreateProject: React.FC = () => {
     const UsersArray = useGetUsers();
     const [SUBMIT] = useAddProjectMutation();
     const [state, setState] = useState({
-        title: '',
-        description: '',
+        title: "",
+        description: "",
         userids: [] as number[],
         usernames: [] as string[],
-        userString: ''
-    })
+        userString: "",
+    });
 
     useEffect(() => {
-        var elems = document.querySelectorAll('.modal');
+        var elems = document.querySelectorAll(".modal");
         M.Modal.init(elems);
-    })
+    });
 
     if (loading || !data || !UsersArray) {
         return (
@@ -30,32 +33,31 @@ export const CreateProject: React.FC = () => {
     }
 
     const handleSubmit = async () => {
-        if (state.title === '' || state.description === '') {
-            if (state.title === '') {
-                document.getElementById('title')?.classList.add('invalid');
+        if (state.title === "" || state.description === "") {
+            if (state.title === "") {
+                document.getElementById("title")?.classList.add("invalid");
             }
-            if (state.description === '') {
-                document.getElementById('desc')?.classList.add('invalid');
+            if (state.description === "") {
+                document.getElementById("desc")?.classList.add("invalid");
             }
 
-            M.toast({ html: 'Missing Data' });
+            M.toast({ html: "Missing Data" });
         } else {
             await SUBMIT({
                 variables: {
                     description: state.description,
                     title: state.title,
-                    users: state.userString
-                }
-            })
-            M.toast({ html: 'Project added successfully' });
-            window.location.replace('/manage-projects');
+                    users: state.userString,
+                },
+            });
+            M.toast({ html: "Project added successfully" });
+            window.location.replace("/manage-projects");
         }
-    }
+    };
 
     const addUser = async (id: number, username: string) => {
         let tmp = state.userids as number[];
         let tmp2 = state.usernames as string[];
-
         if (tmp.indexOf(id) === 0) {
             tmp.shift();
         } else if (tmp.indexOf(id) !== -1) {
@@ -78,13 +80,11 @@ export const CreateProject: React.FC = () => {
             tmp2 = tmp2.concat(username);
         }
         let tmp3 = state.userString + ` ${tmp}`;
-        setState({ ...state, userids: tmp, usernames: tmp2 });
-        setState({ ...state, userString: tmp3 });
-    }
+        setState({ ...state, userids: tmp, usernames: tmp2, userString: tmp3 });
+    };
 
     return (
         <>
-
             <div className="detailsWrapper container-fluid">
                 <div className="center-align table-wrapper">
                     <span className="table-header z-depth-2">
@@ -104,18 +104,51 @@ export const CreateProject: React.FC = () => {
                                 <tr>
                                     <td>
                                         <div className="input-field">
-                                            <input type="text" id="title" className="validate" value={state.title} onChange={(e) => setState({ ...state, title: e.target.value })} />
-                                            <label htmlFor="title">ADD A TITLE</label>
-                                            <span className="helper-text" data-error="Please enter a title"></span>
+                                            <input
+                                                type="text"
+                                                id="title"
+                                                className="validate"
+                                                value={state.title}
+                                                onChange={e =>
+                                                    setState({
+                                                        ...state,
+                                                        title: e.target.value,
+                                                    })
+                                                }
+                                            />
+                                            <label htmlFor="title">
+                                                ADD A TITLE
+                                            </label>
+                                            <span
+                                                className="helper-text"
+                                                data-error="Please enter a title"
+                                            ></span>
                                         </div>
                                     </td>
 
                                     <td>
                                         <form>
                                             <div className="input-field">
-                                                <input type="text" id="desc" className="validate" value={state.description} onChange={(e) => setState({ ...state, description: e.target.value })} />
-                                                <label htmlFor="desc">ADD A DESCRIPTION</label>
-                                                <span className="helper-text" data-error="Please enter a Description"></span>
+                                                <input
+                                                    type="text"
+                                                    id="desc"
+                                                    className="validate"
+                                                    value={state.description}
+                                                    onChange={e =>
+                                                        setState({
+                                                            ...state,
+                                                            description:
+                                                                e.target.value,
+                                                        })
+                                                    }
+                                                />
+                                                <label htmlFor="desc">
+                                                    ADD A DESCRIPTION
+                                                </label>
+                                                <span
+                                                    className="helper-text"
+                                                    data-error="Please enter a Description"
+                                                ></span>
                                             </div>
                                         </form>
                                     </td>
@@ -125,8 +158,10 @@ export const CreateProject: React.FC = () => {
 
                         <div className="row">
                             <span className="col s5 m5 l5 xl5">
-                                <span className='personnel-header z-depth-2 col s12 m12 l12 xl12'>
-                                    <h3 className="white-text">Assign Personnel</h3>
+                                <span className="personnel-header z-depth-2 col s12 m12 l12 xl12">
+                                    <h3 className="white-text">
+                                        Assign Personnel
+                                    </h3>
                                 </span>
 
                                 <table className="responsive-table striped">
@@ -147,28 +182,49 @@ export const CreateProject: React.FC = () => {
                                             );
                                         })}
                                     </tbody>
-
-
                                 </table>
                                 <div className="input-field col s12">
                                     <select className="browser-default">
-                                        <option value="" disabled selected>Click to add/remove</option>
-                                        {data!.getUsers!.map((_val, i, getUsers) => {
-                                            return (
-                                                <option key={i} onClick={() => { addUser(getUsers[i].id, getUsers[i].username) }}>  {getUsers[i].username} </option>
-                                            );
-                                        })}
+                                        <option value="" disabled selected>
+                                            Click to add/remove
+                                        </option>
+                                        {data!.getUsers!.map(
+                                            (_val, i, getUsers) => {
+                                                return (
+                                                    <option
+                                                        key={i}
+                                                        onClick={() => {
+                                                            addUser(
+                                                                getUsers[i].id,
+                                                                getUsers[i]
+                                                                    .username
+                                                            );
+                                                        }}
+                                                    >
+                                                        {getUsers[i].username}
+                                                    </option>
+                                                );
+                                            }
+                                        )}
                                     </select>
                                 </div>
                             </span>
-
-
                         </div>
 
                         <div className="divider"></div>
                         <div className="row">
-                            <button className="btn left footerBtn modal-trigger modal-trigger" data-target="cancelModal">Back</button>
-                            <button className="btn right safe-btn" onClick={() => handleSubmit()}>Submit</button>
+                            <button
+                                className="btn left footerBtn modal-trigger modal-trigger"
+                                data-target="cancelModal"
+                            >
+                                Back
+                            </button>
+                            <button
+                                className="btn right safe-btn"
+                                onClick={() => handleSubmit()}
+                            >
+                                Submit
+                            </button>
                         </div>
                     </span>
 
@@ -178,14 +234,19 @@ export const CreateProject: React.FC = () => {
                             <h6>All of your Data will be erased</h6>
                         </div>
                         <div className="modal-footer">
-                            <button className="modal-close waves-effect waves-green btn-flat">Stay On Page</button>
-                            <button className="modal-close red white-text waves-effect waves-red btn-flat" onClick={() => history.goBack()}>CANCEL</button>
+                            <button className="modal-close waves-effect waves-green btn-flat">
+                                Stay On Page
+                            </button>
+                            <button
+                                className="modal-close red white-text waves-effect waves-red btn-flat"
+                                onClick={() => history.goBack()}
+                            >
+                                CANCEL
+                            </button>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </>
     );
-}
+};

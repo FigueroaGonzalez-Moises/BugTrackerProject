@@ -133,6 +133,7 @@ export type TicketData = {
 export type UserTicketsPlus = {
   __typename?: 'UserTicketsPlus';
   ticketid?: Maybe<Scalars['Int']>;
+  title: Scalars['String'];
   userid?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   priority?: Maybe<Scalars['String']>;
@@ -600,7 +601,7 @@ export type GetUserTicketsQuery = (
   { __typename?: 'Query' }
   & { getUserTickets: Array<(
     { __typename?: 'UserTicketsPlus' }
-    & Pick<UserTicketsPlus, 'ticketid' | 'userid' | 'id' | 'priority' | 'type' | 'status'>
+    & Pick<UserTicketsPlus, 'ticketid' | 'title' | 'userid' | 'id' | 'priority' | 'type' | 'status'>
   )> }
 );
 
@@ -1486,6 +1487,7 @@ export const GetUserTicketsDocument = gql`
     query getUserTickets {
   getUserTickets {
     ticketid
+    title
     userid
     id
     priority

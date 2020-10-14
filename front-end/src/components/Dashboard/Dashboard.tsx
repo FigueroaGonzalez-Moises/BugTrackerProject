@@ -51,6 +51,13 @@ export const Dashboard: React.FC = () => {
             name: chart.name.concat(""),
         });
         localStorage.setItem("chart", `${t1}`);
+        let tmp = chart.name;
+        tmp.push("Pie");
+        setChart({
+            ...chart,
+            name: tmp,
+        });
+        localStorage.setItem("chartType", `${tmp}`);
     };
 
     const setChartType = (e: React.SyntheticEvent, i: number): void => {
@@ -66,6 +73,10 @@ export const Dashboard: React.FC = () => {
             localStorage.setItem("chartType", `${tmp}`);
         }
     };
+
+    if (!localStorage.getItem("chartType")) {
+        localStorage.setItem("chartType", "Donut");
+    }
 
     return (
         <span>
@@ -104,7 +115,8 @@ export const Dashboard: React.FC = () => {
                                     <div className="row row-verticle-center">
                                         <div className="col l12 m12 s12 centered">
                                             {chart.name[i] === "Donut" &&
-                                            !!LSdata ? (
+                                            !!LSdata &&
+                                            LSdata[i] ? (
                                                 <Doughnut
                                                     data={LSdata[i]}
                                                     options={{
@@ -113,7 +125,8 @@ export const Dashboard: React.FC = () => {
                                                 />
                                             ) : null}
                                             {chart.name[i] === "Bar" &&
-                                            !!LSdata ? (
+                                            !!LSdata &&
+                                            LSdata[i] ? (
                                                 <Bar
                                                     data={LSdata[i]}
                                                     options={{
@@ -122,7 +135,8 @@ export const Dashboard: React.FC = () => {
                                                 />
                                             ) : null}
                                             {chart.name[i] === "Pie" &&
-                                            !!LSdata ? (
+                                            !!LSdata &&
+                                            LSdata[i] ? (
                                                 <Pie
                                                     data={LSdata[i]}
                                                     options={{
@@ -139,13 +153,13 @@ export const Dashboard: React.FC = () => {
                                         <li className="tab">
                                             <a
                                                 className="active"
-                                                href={`#tab${i}`}
+                                                href={`#tab2${i}`}
                                             >
-                                                Chart Type
+                                                Tickets
                                             </a>
                                         </li>
                                         <li className="tab">
-                                            <a href={`#tab2${i}`}>Tickets </a>
+                                            <a href={`#tab${i}`}>Chart Type</a>
                                         </li>
                                         {/* <li className="tab"><a href={`#tab3${i}`}>Projects</a></li> */}
                                     </ul>
@@ -180,8 +194,7 @@ export const Dashboard: React.FC = () => {
                                                                 )
                                                             }
                                                         >
-                                                            {" "}
-                                                            Donut{" "}
+                                                            Donut
                                                         </button>
                                                     </a>
                                                 </li>
@@ -207,8 +220,7 @@ export const Dashboard: React.FC = () => {
                                                                 );
                                                             }}
                                                         >
-                                                            {" "}
-                                                            Pie{" "}
+                                                            Pie
                                                         </button>
                                                     </a>
                                                 </li>
@@ -234,8 +246,7 @@ export const Dashboard: React.FC = () => {
                                                                 );
                                                             }}
                                                         >
-                                                            {" "}
-                                                            Bar{" "}
+                                                            Bar
                                                         </button>
                                                     </a>
                                                 </li>
@@ -295,8 +306,7 @@ export const Dashboard: React.FC = () => {
                                                                         );
                                                                     }}
                                                                 >
-                                                                    {" "}
-                                                                    By Priority{" "}
+                                                                    By Priority
                                                                 </button>
                                                             </a>
                                                         </li>
@@ -312,8 +322,7 @@ export const Dashboard: React.FC = () => {
                                                                         );
                                                                     }}
                                                                 >
-                                                                    {" "}
-                                                                    By Status{" "}
+                                                                    By Status
                                                                 </button>
                                                             </a>
                                                         </li>
@@ -329,8 +338,7 @@ export const Dashboard: React.FC = () => {
                                                                         );
                                                                     }}
                                                                 >
-                                                                    {" "}
-                                                                    By Type{" "}
+                                                                    By Type
                                                                 </button>
                                                             </a>
                                                         </li>
@@ -353,8 +361,7 @@ export const Dashboard: React.FC = () => {
                                                                         )
                                                                     }
                                                                 >
-                                                                    {" "}
-                                                                    By Priority{" "}
+                                                                    By Priority
                                                                 </button>
                                                             </a>
                                                         </li>
@@ -370,8 +377,7 @@ export const Dashboard: React.FC = () => {
                                                                         )
                                                                     }
                                                                 >
-                                                                    {" "}
-                                                                    By Status{" "}
+                                                                    By Status
                                                                 </button>
                                                             </a>
                                                         </li>
@@ -387,8 +393,7 @@ export const Dashboard: React.FC = () => {
                                                                         )
                                                                     }
                                                                 >
-                                                                    {" "}
-                                                                    By Type{" "}
+                                                                    By Type
                                                                 </button>
                                                             </a>
                                                         </li>

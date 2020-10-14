@@ -15,11 +15,9 @@ const TicketHistory = () => {
         );
     }
 
-    console.log("data :>> ", data);
-
     return (
         <>
-            <div className="detailsWrapper container-fluid">
+            <div className="container">
                 <div className="center-align table-wrapper">
                     <span className="table-header z-depth-2">
                         <h2 className="white-text noselect">

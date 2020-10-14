@@ -5,6 +5,7 @@ import {
 } from "../../generated/graphql";
 import { RouteComponentProps } from "react-router";
 import { setAccessToken } from "../../accessToken";
+import M from "materialize-css";
 
 export const Login: React.FC<RouteComponentProps> = () => {
     const [email, setEmail] = useState("");
@@ -23,40 +24,86 @@ export const Login: React.FC<RouteComponentProps> = () => {
         M.Dropdown.init(elems);
     });
 
-    const submitForm = async (e: any) => {
-        e.preventDefault();
-        try {
-            if (email.length > 1 && password.length > 1) {
-                await fetch(`${URI}/check-refresh-token`, {
-                    method: "POST",
-                    credentials: "include",
-                }).then(async res => {
-                    if (res.status === 499) {
-                        const response2 = await login({
-                            variables: {
-                                email: email,
-                                password: password,
-                            },
-                        });
-
-                        if (response2 && response2.data) {
-                            setAccessToken(response2.data.login.accessToken);
-                            localStorage.setItem(
-                                "refreshToken",
-                                response2.data.login.refreshToken
-                            );
-                        }
-                    }
+    const submitForm = async (e?: React.SyntheticEvent, role?: string) => {
+        if (e) {
+            e.preventDefault();
+        }
+        if (!!role) {
+            try {
+                await demoLogin({
+                    variables: {
+                        role,
+                    },
                 });
-                window.location.reload();
-            } else if (password.length < 1 && email.length < 1) {
-                document.getElementById("password")!.classList.add("invalid");
-                document.getElementById("email")!.classList.add("invalid");
-            } else if (password.length < 1) {
-                document.getElementById("password")!.classList.add("invalid");
+            } catch (err) {
+                console.log("Could not set Role Err :>> ", err);
             }
-        } catch (error) {
-            console.log("error :>> ", error);
+
+            try {
+                const response2 = await login({
+                    variables: {
+                        email: "demo@demo.com",
+                        password: "demoPassword",
+                    },
+                });
+
+                try {
+                    if (response2 && response2.data) {
+                        setAccessToken(response2.data.login.accessToken);
+                        localStorage.setItem(
+                            "refreshToken",
+                            response2.data.login.refreshToken
+                        );
+                    }
+                } catch (err) {
+                    console.log("Could not set tokens ERR :>> ", err);
+                }
+                window.location.reload();
+            } catch (err) {
+                console.log("Could not login Err :>> ", err);
+                M.toast({ html: "Failed Login" });
+                M.toast({ html: "Server is likely down" });
+            }
+        } else {
+            try {
+                if (email.length > 1 && password.length > 1) {
+                    await fetch(`${URI}/check-refresh-token`, {
+                        method: "POST",
+                        credentials: "include",
+                    }).then(async res => {
+                        if (res.status === 499) {
+                            const response2 = await login({
+                                variables: {
+                                    email: email,
+                                    password: password,
+                                },
+                            });
+
+                            if (response2 && response2.data) {
+                                setAccessToken(
+                                    response2.data.login.accessToken
+                                );
+                                localStorage.setItem(
+                                    "refreshToken",
+                                    response2.data.login.refreshToken
+                                );
+                            }
+                        }
+                    });
+                    window.location.reload();
+                } else if (password.length < 1 && email.length < 1) {
+                    document
+                        .getElementById("password")!
+                        .classList.add("invalid");
+                    document.getElementById("email")!.classList.add("invalid");
+                } else if (password.length < 1) {
+                    document
+                        .getElementById("password")!
+                        .classList.add("invalid");
+                }
+            } catch (error) {
+                console.log("error :>> ", error);
+            }
         }
     };
 
@@ -75,8 +122,6 @@ export const Login: React.FC<RouteComponentProps> = () => {
                 response.data.demoLogin.refreshToken
             );
         }
-
-        window.location.reload();
     };
 
     return (
@@ -157,10 +202,8 @@ export const Login: React.FC<RouteComponentProps> = () => {
                                 <li>
                                     <button
                                         className="btnDropdown"
-                                        onClick={e => {
-                                            setEmail("demo@demo.com");
-                                            setPassword("demoPassword");
-                                            demoUser(e, "admin");
+                                        onClick={async e => {
+                                            submitForm(e, "admin");
                                         }}
                                     >
                                         Admin

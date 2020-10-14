@@ -15,6 +15,7 @@ export const AppWrapper: React.FC = () => {
     } else {
         URI = "http://localhost:4000";
     }
+
     useEffect(() => {
         let tmp = localStorage.getItem("refreshToken") as string;
 

@@ -101,11 +101,11 @@ export const DevSub: React.FC<Props> = props => {
                         </ul>
                     </span>
                 ) : (
-                    <span>{developer}</span>
+                    <span className="capitalize">{developer}</span>
                 )}
             </td>
             <td>
-                <span>{submitter}</span>
+                <span className="capitalize">{submitter}</span>
             </td>
         </tr>
     );

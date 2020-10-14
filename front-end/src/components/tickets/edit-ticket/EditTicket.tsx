@@ -8,23 +8,24 @@ import {
     useSetTicketPriorityMutation,
     useDeleteTicketMutation,
     useAddTicketHistoryMutation,
+    useSetTicketProjectMutation,
 } from "../../../generated/graphql";
 import { useHistory, Redirect } from "react-router-dom";
 import M from "materialize-css";
 import { DevSub } from "./DevSub";
-import { AssignProject } from "./AssignProject";
 import { GetLocation } from "../../GetLocation";
 import { useSelector } from "react-redux";
 import { State, User } from "../../../redux/RootReducer";
 import { JsFooterStyling } from "../../../css/JsStyling";
+import { useGetProjects } from "../../project/useGetProjects";
 
 export const EditTicket: React.FC = () => {
     const history: any = useHistory();
-    let id = GetLocation();
+    let ticketid = GetLocation();
     // eslint-disable-next-line
-    var parentid = eval(id);
+    var parentid = eval(ticketid);
     const { data, loading } = useGetTicketDataByIdQuery({
-        variables: { id: `${id}` },
+        variables: { id: `${ticketid}` },
     });
     const user = useSelector<State, User>(
         state =>
@@ -42,6 +43,7 @@ export const EditTicket: React.FC = () => {
     const [setTitle] = useSetTicketTitleMutation();
     const [setDesc] = useSetTicketDescMutation();
     const [setPriority] = useSetTicketPriorityMutation();
+    const [SetTicketProject] = useSetTicketProjectMutation();
     const [DeleteThisTicket] = useDeleteTicketMutation();
     const [addHistory] = useAddTicketHistoryMutation();
     const [state, setState] = useState({
@@ -50,19 +52,21 @@ export const EditTicket: React.FC = () => {
         title: "",
         description: "",
         priority: "",
+        projectid: "",
+        parentTitle: "",
+        assignedTo: "",
         new: false,
     });
+
+    let Projects = useGetProjects();
 
     useEffect(() => {
         var elems = document.querySelectorAll(".dropdown-trigger");
         M.Dropdown.init(elems);
-
         elems = document.querySelectorAll(".modal");
         M.Modal.init(elems);
-
         elems = document.querySelectorAll(".sidenav");
         M.Sidenav.init(elems);
-
         JsFooterStyling();
     });
 
@@ -70,7 +74,7 @@ export const EditTicket: React.FC = () => {
         JsFooterStyling();
     };
 
-    if (loading || !data) {
+    if (loading || !data || !Projects) {
         return (
             <div className="progress">
                 <div className="indeterminate"></div>
@@ -82,102 +86,14 @@ export const EditTicket: React.FC = () => {
         return <Redirect to="#/manage-projects" />;
     }
 
-    const setTicketStatus = async (e: React.SyntheticEvent) => {
-        let target = e.target as HTMLButtonElement;
-        let status = target.name;
-        let oldValue: string = data.getTicketDataById[0].status!;
-        setState({ ...state, status });
-        let tmp = await setStatus({
-            variables: {
-                ticketid: `${id}`,
-                status: `${status}`,
-            },
-        });
-        if (tmp) {
-            M.toast({ html: "Ticket Status successfully changed" });
-            addHistory({
-                variables: {
-                    propertyChanged: "TicketStatus",
-                    oldValue,
-                    parentid,
-                    newValue: status,
-                },
-            });
-        } else {
-            M.toast({ html: "Failed! Server is most likely down" });
-        }
-    };
-
-    const setTicketType = async (e: React.SyntheticEvent) => {
-        let target = e.target as HTMLButtonElement;
-        let type = target.name;
-        let oldValue: string = data.getTicketDataById[0].type!;
-        setState({ ...state, type });
-        let tmp = await setType({
-            variables: {
-                ticketid: `${id}`,
-                type: `${type}`,
-            },
-        });
-        if (tmp) {
-            M.toast({ html: "Ticket Type successfully changed" });
-            addHistory({
-                variables: {
-                    propertyChanged: "TicketType",
-                    oldValue,
-                    parentid,
-                    newValue: type,
-                },
-            });
-        } else {
-            M.toast({ html: "Failed! Server is most likely down" });
-        }
-    };
-
-    const setTicketPriority = async (e: React.SyntheticEvent) => {
-        let target = e.target as HTMLButtonElement;
-        let priority = target.name;
-        let oldValue: string = data.getTicketDataById[0].priority!;
-        setState({ ...state, priority });
-        let tmp = await setPriority({
-            variables: {
-                ticketid: `${id}`,
-                priority: `${priority}`,
-            },
-        });
-        if (tmp) {
-            M.toast({ html: "Ticket Priority successfully changed" });
-            addHistory({
-                variables: {
-                    propertyChanged: "TicketPriority",
-                    oldValue,
-                    parentid,
-                    newValue: priority,
-                },
-            });
-        } else {
-            M.toast({ html: "Failed! Server is most likely down" });
-        }
-    };
-
     const updateTicket = async () => {
-        if (state.title === "" && state.description === "") {
-            if (state.title === "") {
-                document.getElementById("title")!.classList.add("invalid");
-            }
-
-            if (state.description === "") {
-                document.getElementById("desc")!.classList.add("invalid");
-            }
-
-            M.toast({ html: "Not Enough Data Provided" });
-        } else {
+        if (state.title !== "") {
             let oldValue: string = data.getTicketDataById[0].title!;
             setState({ ...state, new: true });
             if (state.title !== "") {
                 let tmp = await setTitle({
                     variables: {
-                        ticketid: `${id}`,
+                        ticketid: `${ticketid}`,
                         title: `${state.title}`,
                     },
                 });
@@ -195,30 +111,106 @@ export const EditTicket: React.FC = () => {
                     M.toast({ html: "Failed! Server is most likely down" });
                 }
             }
-
-            if (state.description !== "") {
-                let tmp = await setDesc({
-                    variables: {
-                        ticketid: `${id}`,
-                        desc: `${state.description}`,
-                    },
-                });
-                if (tmp) {
-                    M.toast({
-                        html: "Ticket Description successfully changed",
-                    });
-                } else {
-                    M.toast({ html: "Failed! Server is most likely down" });
-                }
-            }
-            window.location.reload();
         }
+
+        if (state.description !== "") {
+            await setDesc({
+                variables: {
+                    ticketid: `${ticketid}`,
+                    desc: `${state.description}`,
+                },
+            });
+            let oldValue: string = data.getTicketDataById[0].description!;
+            addHistory({
+                variables: {
+                    propertyChanged: "TicketDescription",
+                    newValue: state.description,
+                    oldValue,
+                    parentid,
+                },
+            });
+        }
+
+        if (state.status !== "") {
+            let oldValue: string = data.getTicketDataById[0].status!;
+            await setStatus({
+                variables: {
+                    ticketid: `${ticketid}`,
+                    status: `${state.status}`,
+                },
+            });
+            await addHistory({
+                variables: {
+                    propertyChanged: "TicketStatus",
+                    oldValue,
+                    parentid,
+                    newValue: state.status,
+                },
+            });
+        }
+
+        if (state.priority !== "") {
+            let oldValue: string = data.getTicketDataById[0].priority!;
+            await setPriority({
+                variables: {
+                    ticketid: `${ticketid}`,
+                    priority: `${state.priority}`,
+                },
+            });
+            addHistory({
+                variables: {
+                    propertyChanged: "TicketPriority",
+                    oldValue,
+                    parentid,
+                    newValue: state.priority,
+                },
+            });
+        }
+
+        if (state.type !== "") {
+            let oldValue: string = data.getTicketDataById[0].type!;
+            await setType({
+                variables: {
+                    ticketid: `${ticketid}`,
+                    type: `${state.type}`,
+                },
+            });
+            addHistory({
+                variables: {
+                    propertyChanged: "TicketType",
+                    oldValue,
+                    parentid,
+                    newValue: state.type,
+                },
+            });
+        }
+
+        if (state.projectid !== "") {
+            let oldValue: string = data.getTicketDataById[0].belongsto;
+            await SetTicketProject({
+                variables: {
+                    ticketid,
+                    projectid: state.projectid,
+                },
+            });
+
+            addHistory({
+                variables: {
+                    propertyChanged: "ParentOfTicket",
+                    oldValue: `ProjectId: ${oldValue}`,
+                    parentid,
+                    newValue: `ProjectId: ${state.projectid}`,
+                },
+            });
+        }
+
+        window.location.reload();
     };
 
     const deleteTicket = async () => {
         await DeleteThisTicket({
             variables: {
-                ticketid: `${id}`,
+                ticketid: `${ticketid}`,
             },
         });
         window.location.replace("#/dashboard");
@@ -228,7 +220,9 @@ export const EditTicket: React.FC = () => {
         <div className="container">
             <div className="center-align table-wrapper">
                 <span className="table-header z-depth-2">
-                    <h2 className="white-text noselect">Edit Ticket #{id}</h2>
+                    <h2 className="white-text noselect">
+                        Edit Ticket #{ticketid}
+                    </h2>
                 </span>
 
                 <span className="table-body z-depth-1">
@@ -329,10 +323,68 @@ export const EditTicket: React.FC = () => {
                                 {user.role === "developer" ? (
                                     <td>{data.getTicketDataById[0].title}</td>
                                 ) : (
-                                    <AssignProject
-                                        title={`${data.getTicketDataById[0].title}`}
-                                        id={id}
-                                    />
+                                    <td>
+                                        {/* eslint-disable-next-line */}
+                                        <a
+                                            className="dropdown-trigger btn manage-dropdown"
+                                            data-target="dropdownassign"
+                                        >
+                                            {state.parentTitle === "" ? (
+                                                // eslint-disable-next-line
+                                                Projects.map((_val, i) => {
+                                                    if (
+                                                        `${
+                                                            Projects![i]
+                                                                .projectid
+                                                        }` ===
+                                                        `${data!
+                                                            .getTicketDataById[0]
+                                                            .belongsto!}`
+                                                    ) {
+                                                        return Projects![i]
+                                                            .title;
+                                                    }
+                                                })
+                                            ) : (
+                                                <>{state.parentTitle}</>
+                                            )}
+                                        </a>
+                                        <ul
+                                            id="dropdownassign"
+                                            className="dropdown-content"
+                                        >
+                                            {!!Projects.map
+                                                ? Projects.map((_val, i) => {
+                                                      return (
+                                                          <li key={i}>
+                                                              <button
+                                                                  className="btnDropdown"
+                                                                  onClick={() =>
+                                                                      setState({
+                                                                          ...state,
+                                                                          projectid: `${Projects![
+                                                                              i
+                                                                          ]
+                                                                              .projectid!}`,
+                                                                          parentTitle: Projects![
+                                                                              i
+                                                                          ]
+                                                                              .title!,
+                                                                      })
+                                                                  }
+                                                              >
+                                                                  {
+                                                                      Projects![
+                                                                          i
+                                                                      ].title
+                                                                  }
+                                                              </button>
+                                                          </li>
+                                                      );
+                                                  })
+                                                : null}
+                                        </ul>
+                                    </td>
                                 )}
                                 <td>
                                     <a
@@ -356,9 +408,11 @@ export const EditTicket: React.FC = () => {
                                         <li>
                                             <button
                                                 className="btnDropdown"
-                                                name="low"
-                                                onClick={e =>
-                                                    setTicketPriority(e)
+                                                onClick={() =>
+                                                    setState({
+                                                        ...state,
+                                                        priority: "low",
+                                                    })
                                                 }
                                             >
                                                 Low
@@ -367,9 +421,11 @@ export const EditTicket: React.FC = () => {
                                         <li>
                                             <button
                                                 className="btnDropdown"
-                                                name="medium"
-                                                onClick={e =>
-                                                    setTicketPriority(e)
+                                                onClick={() =>
+                                                    setState({
+                                                        ...state,
+                                                        priority: "medium",
+                                                    })
                                                 }
                                             >
                                                 Medium
@@ -378,9 +434,11 @@ export const EditTicket: React.FC = () => {
                                         <li>
                                             <button
                                                 className="btnDropdown"
-                                                name="high"
-                                                onClick={e =>
-                                                    setTicketPriority(e)
+                                                onClick={() =>
+                                                    setState({
+                                                        ...state,
+                                                        priority: "high",
+                                                    })
                                                 }
                                             >
                                                 High
@@ -418,9 +476,11 @@ export const EditTicket: React.FC = () => {
                                         <li>
                                             <button
                                                 className="btnDropdown"
-                                                name="open"
-                                                onClick={e =>
-                                                    setTicketStatus(e)
+                                                onClick={() =>
+                                                    setState({
+                                                        ...state,
+                                                        status: "open",
+                                                    })
                                                 }
                                             >
                                                 Open
@@ -430,8 +490,11 @@ export const EditTicket: React.FC = () => {
                                             <button
                                                 className="btnDropdown"
                                                 name="closed"
-                                                onClick={e =>
-                                                    setTicketStatus(e)
+                                                onClick={() =>
+                                                    setState({
+                                                        ...state,
+                                                        status: "closed",
+                                                    })
                                                 }
                                             >
                                                 Closed
@@ -441,8 +504,11 @@ export const EditTicket: React.FC = () => {
                                             <button
                                                 className="btnDropdown"
                                                 name="on-hold"
-                                                onClick={e =>
-                                                    setTicketStatus(e)
+                                                onClick={() =>
+                                                    setState({
+                                                        ...state,
+                                                        status: "on-hold",
+                                                    })
                                                 }
                                             >
                                                 On Hold
@@ -471,8 +537,12 @@ export const EditTicket: React.FC = () => {
                                         <li>
                                             <button
                                                 className="btnDropdown"
-                                                name="bugs/errors"
-                                                onClick={e => setTicketType(e)}
+                                                onClick={() =>
+                                                    setState({
+                                                        ...state,
+                                                        type: "bugs/errors",
+                                                    })
+                                                }
                                             >
                                                 Bugs/Errors
                                             </button>
@@ -480,8 +550,12 @@ export const EditTicket: React.FC = () => {
                                         <li>
                                             <button
                                                 className="btnDropdown"
-                                                name="features"
-                                                onClick={e => setTicketType(e)}
+                                                onClick={() =>
+                                                    setState({
+                                                        ...state,
+                                                        type: "features",
+                                                    })
+                                                }
                                             >
                                                 Features
                                             </button>
@@ -520,7 +594,10 @@ export const EditTicket: React.FC = () => {
 
                 <div id="modal1" className="modal">
                     <div className="modal-content">
-                        <h4>ARE YOU SURE YOU WANT TO DELETE TICKET #{id}</h4>
+                        <h4>
+                            ARE YOU SURE YOU WANT TO DELETE TICKET #{ticketid}
+                        </h4>
+                        <p>This action cannot be undone</p>
                     </div>
                     <div className="modal-footer">
                         <button className="modal-close waves-effect waves-green btn-flat">

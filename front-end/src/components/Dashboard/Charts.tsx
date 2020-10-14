@@ -78,7 +78,7 @@ export const Card: React.FC = () => {
                                             >
                                                 <i className="material-icons">
                                                     donut_large
-                                                </i>{" "}
+                                                </i>
                                                 Donut
                                             </button>
                                         </li>

@@ -1,15 +1,36 @@
 import React, { useEffect } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { useGetProjectDataByIdQuery } from "../../generated/graphql";
-import { ProjectTickets } from "./ProjectTickets";
-import { ProjectAssigned } from "./ProjectAssigned";
 import { GetLocation } from "../GetLocation";
 import { useSelector } from "react-redux";
 import { State, User } from "../../redux/RootReducer";
+import useGetProjectTickets from "./useGetProjectTickets";
+import { Sorting } from "../Sorting";
+import { useState } from "react";
+import useGetProjectUsers from "./useGetProjectUsers";
 
 export const ProjectDetails: React.FC = () => {
     let history: any = useHistory();
     let id = GetLocation();
+    const {
+        sortByTitle,
+        sortBySubmitter,
+        sortByDeveloper,
+        sortTicketsByStatus,
+        usernameSort,
+        emailSort,
+        roleSort,
+    } = Sorting();
+    const [state, setState] = useState({
+        toggle: "0",
+        titleSwitch: "0",
+        usernameSwitch: "0",
+        emailSwitch: "0",
+        roleSwitch: "0",
+        submitterSwitch: "0",
+        developerSwitch: "0",
+    });
+
     const user = useSelector<State, User>(
         state =>
             state.user || {
@@ -21,6 +42,10 @@ export const ProjectDetails: React.FC = () => {
                 lastname: "",
             }
     );
+
+    let Tickets = useGetProjectTickets();
+    let AssignedUsers = useGetProjectUsers();
+
     const { data, loading } = useGetProjectDataByIdQuery({
         variables: { projectid: `${id}` },
     });
@@ -30,13 +55,14 @@ export const ProjectDetails: React.FC = () => {
         M.Sidenav.init(elems);
     });
 
-    if (loading || !data) {
+    if (loading || !data || !AssignedUsers || !Tickets) {
         return (
             <div className="progress">
                 <div className="indeterminate"></div>
             </div>
         );
     }
+
     return (
         <span>
             {data.getProjectDataById.length === 0 ? (
@@ -86,18 +112,101 @@ export const ProjectDetails: React.FC = () => {
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <b>User Name</b>
+                                                    <b>
+                                                        User Name
+                                                        <i
+                                                            className="material-icons noselect"
+                                                            onClick={() => {
+                                                                let usernameSwitch: string = usernameSort(
+                                                                    AssignedUsers,
+                                                                    state.usernameSwitch
+                                                                );
+                                                                setState({
+                                                                    ...state,
+                                                                    usernameSwitch,
+                                                                });
+                                                            }}
+                                                        >
+                                                            swap_vert
+                                                        </i>
+                                                    </b>
                                                 </th>
                                                 <th className="nonessen">
-                                                    <b>Email</b>
+                                                    <b>
+                                                        Email
+                                                        <i
+                                                            className="material-icons noselect"
+                                                            onClick={() => {
+                                                                let emailSwitch: string =
+                                                                    emailSort(
+                                                                        AssignedUsers,
+                                                                        state.emailSwitch
+                                                                    ) || "0";
+                                                                setState({
+                                                                    ...state,
+                                                                    emailSwitch,
+                                                                });
+                                                            }}
+                                                        >
+                                                            swap_vert
+                                                        </i>
+                                                    </b>
                                                 </th>
                                                 <th className="nonessen">
-                                                    <b>Role</b>
+                                                    <b>
+                                                        Role
+                                                        <i
+                                                            className="material-icons noselect"
+                                                            onClick={() => {
+                                                                let roleSwitch: string =
+                                                                    roleSort(
+                                                                        AssignedUsers,
+                                                                        state.roleSwitch
+                                                                    ) || "0";
+                                                                setState({
+                                                                    ...state,
+                                                                    roleSwitch,
+                                                                });
+                                                            }}
+                                                        >
+                                                            swap_vert
+                                                        </i>
+                                                    </b>
                                                 </th>
                                             </tr>
                                         </thead>
 
-                                        <ProjectAssigned />
+                                        <tbody>
+                                            {AssignedUsers!.map(
+                                                (_val, i): JSX.Element => {
+                                                    return (
+                                                        <tr key={i}>
+                                                            <td className="capitalize nonessen">
+                                                                {
+                                                                    AssignedUsers![
+                                                                        i
+                                                                    ].username
+                                                                }
+                                                            </td>
+                                                            <td className="capitalize nonessen">
+                                                                {
+                                                                    AssignedUsers![
+                                                                        i
+                                                                    ].email
+                                                                }
+                                                            </td>
+                                                            <td className="capitalize">
+                                                                {
+                                                                    AssignedUsers![
+                                                                        i
+                                                                    ].role
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                }
+                                            )}
+                                        </tbody>
                                     </table>
                                 </span>
 
@@ -112,21 +221,142 @@ export const ProjectDetails: React.FC = () => {
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <b>Title</b>
+                                                    <b>
+                                                        Title
+                                                        <i
+                                                            className="material-icons noselect"
+                                                            onClick={() => {
+                                                                let titleSwitch = sortByTitle(
+                                                                    Tickets,
+                                                                    state.titleSwitch
+                                                                );
+                                                                setState({
+                                                                    ...state,
+                                                                    titleSwitch,
+                                                                });
+                                                            }}
+                                                        >
+                                                            swap_vert
+                                                        </i>
+                                                    </b>
                                                 </th>
                                                 <th className="nonessen">
-                                                    <b>Submitter</b>
+                                                    <b>
+                                                        Submitter
+                                                        <i
+                                                            className="material-icons noselect"
+                                                            onClick={() => {
+                                                                let submitterSwitch = sortBySubmitter(
+                                                                    Tickets,
+                                                                    state.submitterSwitch
+                                                                );
+                                                                setState({
+                                                                    ...state,
+                                                                    submitterSwitch,
+                                                                });
+                                                            }}
+                                                        >
+                                                            swap_vert
+                                                        </i>
+                                                    </b>
                                                 </th>
                                                 <th className="nonessen">
-                                                    <b>Developer</b>
+                                                    <b>
+                                                        Developer
+                                                        <i
+                                                            className="material-icons noselect"
+                                                            onClick={() => {
+                                                                let developerSwitch = sortByDeveloper(
+                                                                    Tickets,
+                                                                    state.developerSwitch
+                                                                );
+                                                                setState({
+                                                                    ...state,
+                                                                    developerSwitch,
+                                                                });
+                                                            }}
+                                                        >
+                                                            swap_vert
+                                                        </i>
+                                                    </b>
                                                 </th>
                                                 <th>
-                                                    <b>Status</b>
+                                                    <b>
+                                                        Status
+                                                        <i
+                                                            className="material-icons noselect"
+                                                            onClick={() => {
+                                                                let toggle: string =
+                                                                    sortTicketsByStatus(
+                                                                        Tickets,
+                                                                        state.toggle
+                                                                    ) || "0";
+                                                                setState({
+                                                                    ...state,
+                                                                    toggle,
+                                                                });
+                                                            }}
+                                                        >
+                                                            swap_vert
+                                                        </i>
+                                                    </b>
                                                 </th>
                                             </tr>
                                         </thead>
 
-                                        <ProjectTickets />
+                                        <tbody>
+                                            {!Tickets
+                                                ? null
+                                                : Tickets!.map((_val, i) => {
+                                                      return (
+                                                          <tr key={i}>
+                                                              <td className="capitalize">
+                                                                  {
+                                                                      Tickets![
+                                                                          i
+                                                                      ].title
+                                                                  }
+                                                              </td>
+                                                              <td className="capitalize nonessen">
+                                                                  {
+                                                                      Tickets![
+                                                                          i
+                                                                      ]
+                                                                          .submitter
+                                                                  }
+                                                              </td>
+                                                              <td className="capitalize nonessen">
+                                                                  {
+                                                                      Tickets![
+                                                                          i
+                                                                      ]
+                                                                          .developer
+                                                                  }
+                                                              </td>
+                                                              <td className="capitalize">
+                                                                  {
+                                                                      Tickets![
+                                                                          i
+                                                                      ].status
+                                                                  }
+                                                              </td>
+                                                              <td>
+                                                                  <a
+                                                                      className="noselect"
+                                                                      href={`#/ticket-details:${
+                                                                          Tickets![
+                                                                              i
+                                                                          ]
+                                                                              .ticketid
+                                                                      }`}
+                                                                  >
+                                                                      Details
+                                                                  </a>
+                                                              </td>
+                                                          </tr>
+                                                      );
+                                                  })}
+                                        </tbody>
                                     </table>
                                 </span>
                             </div>

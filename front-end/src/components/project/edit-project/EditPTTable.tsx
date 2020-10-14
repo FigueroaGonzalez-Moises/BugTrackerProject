@@ -30,10 +30,18 @@ export const EditPTTable: React.FC = () => {
                 data!.getProjectTickets.map((_val, i, getProjectTickets) => {
                     return (
                         <tr key={i}>
-                            <td> {getProjectTickets[i].title} </td>
-                            <td> {getProjectTickets[i].submitter} </td>
-                            <td> {getProjectTickets[i].developer} </td>
-                            <td> {getProjectTickets[i].status} </td>
+                            <td className="capitalize">
+                                {getProjectTickets[i].title}
+                            </td>
+                            <td className="capitalize">
+                                {getProjectTickets[i].submitter}
+                            </td>
+                            <td className="capitalize">
+                                {getProjectTickets[i].developer}
+                            </td>
+                            <td className="capitalize">
+                                {getProjectTickets[i].status}
+                            </td>
                             <td>
                                 <a
                                     href={`#/edit-ticket:${getProjectTickets[i].ticketid}`}
