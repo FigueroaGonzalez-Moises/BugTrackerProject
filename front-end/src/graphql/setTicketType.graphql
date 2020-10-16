@@ -1,3 +1,0 @@
-mutation setTicketType($ticketid: String!, $type: String!) {
-    setTicketType(ticketid: $ticketid, type: $type)
-}

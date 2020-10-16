@@ -1,8 +1,0 @@
-query getProjectUsersById($projectid: String!) {
-    getProjectUsersById(projectid: $projectid) {
-        id
-        email
-        role
-        username
-    }
-}

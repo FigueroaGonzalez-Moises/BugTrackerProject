@@ -1,3 +1,0 @@
-mutation updateComment($commentid: Float!, $updatedMessage: String!) {
-    updateComment(commentid: $commentid, updatedMessage: $updatedMessage)
-}

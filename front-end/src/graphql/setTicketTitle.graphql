@@ -1,6 +1,0 @@
-mutation setTicketTitle($ticketid: String!, $title: String!) {
-    setTicketTitle(
-        ticketid: $ticketid,
-        title: $title
-    )
-} 

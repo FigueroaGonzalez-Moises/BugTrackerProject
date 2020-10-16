@@ -1,3 +1,0 @@
-mutation addComment($comment: String!, $parentid: Float!) {
-    addComment(comment: $comment, parentid: $parentid)
-}

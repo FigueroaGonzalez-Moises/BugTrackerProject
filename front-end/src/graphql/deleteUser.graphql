@@ -1,3 +1,0 @@
-mutation deleteUser($userid: String!) {
-    deleteUser(userid: $userid)
-}

@@ -1,6 +1,0 @@
-mutation setTicketDesc($ticketid: String!, $desc: String!) {
-    setTicketDesc(
-        ticketid: $ticketid,
-        desc: $desc
-    )
-} 

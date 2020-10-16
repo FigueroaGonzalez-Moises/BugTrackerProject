@@ -1,3 +1,0 @@
-mutation setProjectTitle($projectid: String!, $title: String!) {
-    setProjectTitle(projectid: $projectid, title: $title)
-}

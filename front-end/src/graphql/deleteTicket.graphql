@@ -1,3 +1,0 @@
-mutation deleteTicket($ticketid: String!) {
-    deleteTicket(ticketid: $ticketid)
-}

@@ -1,3 +1,0 @@
-mutation setTicketStatus($ticketid: String!, $status: String!) {
-    setTicketStatus(ticketid: $ticketid, status: $status)
-}

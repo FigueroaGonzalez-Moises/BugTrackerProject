@@ -1,7 +1,0 @@
-query getProjectData {
-    getProjectData {
-        title
-        description
-        projectid
-    }
-}

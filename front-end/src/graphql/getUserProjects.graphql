@@ -1,7 +1,0 @@
-query getUserProjects {
-    getUserProjects {
-        projectid
-        userid
-        id
-    }
-}

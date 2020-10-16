@@ -1,3 +1,0 @@
-mutation setTicketDeveloper($ticketid: String!, $developer: String!) {
-    setTicketDeveloper(ticketid: $ticketid, developer: $developer)
-}

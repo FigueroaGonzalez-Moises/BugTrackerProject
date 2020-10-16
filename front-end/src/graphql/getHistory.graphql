@@ -1,9 +1,0 @@
-query getHistory($parentid: Float!) {
-    getHistory(parentid: $parentid) {
-        id
-        propertyChanged
-        oldValue
-        newValue
-        dateChanged
-    }
-}

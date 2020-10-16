@@ -1,7 +1,0 @@
-mutation addProject($title: String!, $description: String!, $users: String!) {
-    addProject(
-        title: $title,
-        description: $description,
-        users: $users
-    ) 
-}
