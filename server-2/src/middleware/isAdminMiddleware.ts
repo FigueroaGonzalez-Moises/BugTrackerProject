@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { MiddlewareFn } from "type-graphql";
 import { MyContext } from "../MyContext";
 import { verify } from "jsonwebtoken";
@@ -11,6 +12,12 @@ interface payload {
 
 export const isAdmin: MiddlewareFn<MyContext> = ({ context }, next) => {
     const authorization = context.req.headers["authorization"];
+
+    if (!process.env.ACCESS_TOKEN_SECRET) {
+        console.log("ENV var undefined in isAdmin Middleware");
+        return Promise.reject();
+    }
+
     if (!authorization) {
         return Promise.reject();
     } else {

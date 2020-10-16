@@ -1,5 +1,5 @@
-import { MiddlewareFn } from "type-graphql";
 import "dotenv/config";
+import { MiddlewareFn } from "type-graphql";
 import { MyContext } from "../MyContext";
 import { verify } from "jsonwebtoken";
 
@@ -17,7 +17,7 @@ export const assignPayload: MiddlewareFn<MyContext> = ({ context }, next) => {
         return Promise.reject();
     } else {
         if (!process.env.ACCESS_TOKEN_SECRET) {
-            console.log("ACCESS_TOKEN_SECRET is undefined");
+            console.log("ACCESS_TOKEN_SECRET is undefined in assignPayload");
             return Promise.reject();
         } else {
             try {

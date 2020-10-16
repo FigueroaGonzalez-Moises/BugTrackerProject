@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { getConnectionOptions, createConnection, getRepository } from "typeorm";
 import { User } from "./entity/User";
 import { hash } from "bcryptjs";

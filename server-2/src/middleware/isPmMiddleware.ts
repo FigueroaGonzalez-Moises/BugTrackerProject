@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { MyContext } from "../MyContext";
 import { MiddlewareFn } from "type-graphql";
 import { verify } from "jsonwebtoken";
@@ -11,6 +12,11 @@ interface payload {
 
 export const isPm: MiddlewareFn<MyContext> = ({ context }, next) => {
     const authorization = context.req.headers["authorization"];
+
+    if (!process.env.ACCESS_TOKEN_SECRET) {
+        console.log("ENV var undefined in isPm Middleware");
+        return Promise.reject();
+    }
 
     if (!authorization) {
         return Promise.reject();
