@@ -1,0 +1,6 @@
+mutation demoLogin($role: String!) {
+    demoLogin(role: $role) {
+        accessToken
+        refreshToken
+    }
+}

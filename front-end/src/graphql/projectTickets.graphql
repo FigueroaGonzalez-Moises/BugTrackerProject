@@ -1,0 +1,11 @@
+
+query getProjectTickets($id: String!) {
+    getProjectTickets (id: $id) {
+        ticketid
+        title
+        description
+        submitter
+        developer
+        status
+    }
+}

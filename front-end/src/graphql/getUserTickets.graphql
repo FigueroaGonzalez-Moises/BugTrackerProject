@@ -1,0 +1,11 @@
+query getUserTickets {
+    getUserTickets {
+        ticketid
+        title
+        userid
+        id
+        priority
+        type
+        status
+    }
+}

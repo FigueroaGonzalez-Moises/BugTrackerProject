@@ -1,0 +1,125 @@
+.w-50 {
+  width: 50% !important;
+}
+
+.card-content {
+  padding: 0px !important;
+}
+
+.tab a {
+  padding: 0px !important;
+}
+
+.tabs .tab a {
+  color: black;
+}
+
+.tabs .tab a:focus {
+  background-color: transparent;
+}
+
+.tabs .tab a:hover {
+  color: #607d8b;
+}
+
+.tabs .tab a.active {
+  color: black;
+}
+
+.tabs .tab a.active:focus {
+  background-color: transparent;
+}
+
+.tabs .tab a.active:hover {
+  color: #607d8b;
+}
+
+.card-opt {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.card-opt:focus {
+  background-color: transparent !important;
+}
+
+.tabs .indicator {
+  background-color: #4caf50;
+}
+
+.indicator-yellow .active {
+  color: #000000 !important;
+}
+
+.indicator-yellow a:focus {
+  background-color: transparent !important;
+}
+
+.indicator-yellow .indicator {
+  background-color: #ffeb3b;
+}
+
+.indicator-blue .active {
+  color: #000000 !important;
+}
+
+.indicator-blue a:focus {
+  background-color: transparent !important;
+}
+
+.indicator-blue .indicator {
+  background-color: #42a5f5;
+}
+
+.indicator-cyan .active {
+  color: #000000 !important;
+}
+
+.indicator-cyan a:focus {
+  background-color: transparent !important;
+}
+
+.indicator-cyan .indicator {
+  background-color: #26c6da;
+}
+
+.indicator-orange .active {
+  color: #000000 !important;
+}
+
+.indicator-orange a:focus {
+  background-color: transparent !important;
+}
+
+.indicator-orange .indicator {
+  background-color: #ff9100;
+}
+
+.indicator-pink .active {
+  color: #000000 !important;
+}
+
+.indicator-pink a:focus {
+  background-color: transparent !important;
+}
+
+.indicator-pink .indicator {
+  background-color: #e13296;
+}
+
+.indicator-darkblue .active {
+  color: #000000 !important;
+}
+
+.indicator-darkblue a:focus {
+  background-color: transparent !important;
+}
+
+.indicator-darkblue .indicator {
+  background-color: #051937;
+}
+/*# sourceMappingURL=dashboard.css.map */

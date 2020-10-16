@@ -1,0 +1,3 @@
+mutation setTicketPriority($ticketid: String!, $priority: String!) {
+    setTicketPriority(ticketid: $ticketid, priority: $priority)
+}

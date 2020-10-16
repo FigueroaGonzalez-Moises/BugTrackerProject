@@ -1,0 +1,13 @@
+mutation addTicketHistory(
+    $parentid: Float!
+    $propertyChanged: String!
+    $newValue: String!
+    $oldValue: String!
+) {
+    addTicketHistory(
+        parentid: $parentid
+        propertyChanged: $propertyChanged
+        newValue: $newValue
+        oldValue: $oldValue
+    )
+}
