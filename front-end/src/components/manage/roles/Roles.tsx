@@ -47,7 +47,7 @@ export const ManageRoles: React.FC = () => {
 
     return (
         <div className="container">
-            <div className="center-align table-wrapper">
+            <div className="center-align table-wrapper table-mb">
                 <span className="table-header z-depth-2">
                     <h2 className="white-text">Manage Roles</h2>
                 </span>

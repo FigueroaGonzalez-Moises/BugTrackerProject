@@ -9,15 +9,16 @@ import {
     useDeleteTicketMutation,
     useAddTicketHistoryMutation,
     useSetTicketProjectMutation,
+    useSetTicketDeveloperMutation,
 } from "../../../generated/graphql";
 import { useHistory, Redirect } from "react-router-dom";
 import M from "materialize-css";
-import { DevSub } from "./DevSub";
 import { GetLocation } from "../../GetLocation";
 import { useSelector } from "react-redux";
 import { State, User } from "../../../redux/RootReducer";
 import { JsFooterStyling } from "../../../css/JsStyling";
 import { useGetProjects } from "../../project/useGetProjects";
+import { useGetUsers } from "../useGetUsers";
 
 export const EditTicket: React.FC = () => {
     const history: any = useHistory();
@@ -46,6 +47,7 @@ export const EditTicket: React.FC = () => {
     const [SetTicketProject] = useSetTicketProjectMutation();
     const [DeleteThisTicket] = useDeleteTicketMutation();
     const [addHistory] = useAddTicketHistoryMutation();
+    const [setDeveloper] = useSetTicketDeveloperMutation();
     const [state, setState] = useState({
         status: "",
         type: "",
@@ -56,9 +58,11 @@ export const EditTicket: React.FC = () => {
         parentTitle: "",
         assignedTo: "",
         new: false,
+        developer: "",
     });
 
     let Projects = useGetProjects();
+    let Users = useGetUsers();
 
     useEffect(() => {
         var elems = document.querySelectorAll(".dropdown-trigger");
@@ -74,7 +78,7 @@ export const EditTicket: React.FC = () => {
         JsFooterStyling();
     };
 
-    if (loading || !data || !Projects) {
+    if (loading || !data || !Projects || !Users) {
         return (
             <div className="progress">
                 <div className="indeterminate"></div>
@@ -87,125 +91,152 @@ export const EditTicket: React.FC = () => {
     }
 
     const updateTicket = async () => {
-        if (state.title !== "") {
-            let oldValue: string = data.getTicketDataById[0].title!;
-            setState({ ...state, new: true });
+        try {
             if (state.title !== "") {
-                let tmp = await setTitle({
-                    variables: {
-                        ticketid: `${ticketid}`,
-                        title: `${state.title}`,
-                    },
-                });
-                if (tmp) {
-                    M.toast({ html: "Ticket Title successfully changed" });
-                    addHistory({
+                let oldValue: string = data.getTicketDataById[0].title!;
+                setState({ ...state, new: true });
+                if (state.title !== "") {
+                    let tmp = await setTitle({
                         variables: {
-                            propertyChanged: "TicketTitle",
-                            newValue: state.title,
-                            oldValue,
-                            parentid,
+                            ticketid: `${ticketid}`,
+                            title: `${state.title}`,
                         },
                     });
-                } else {
-                    M.toast({ html: "Failed! Server is most likely down" });
+                    if (tmp) {
+                        M.toast({ html: "Ticket Title successfully changed" });
+                        addHistory({
+                            variables: {
+                                propertyChanged: "TicketTitle",
+                                newValue: state.title,
+                                oldValue,
+                                parentid,
+                            },
+                        });
+                    } else {
+                        M.toast({ html: "Failed! Server is most likely down" });
+                    }
                 }
             }
-        }
 
-        if (state.description !== "") {
-            await setDesc({
-                variables: {
-                    ticketid: `${ticketid}`,
-                    desc: `${state.description}`,
-                },
-            });
-            let oldValue: string = data.getTicketDataById[0].description!;
-            addHistory({
-                variables: {
-                    propertyChanged: "TicketDescription",
-                    newValue: state.description,
-                    oldValue,
-                    parentid,
-                },
-            });
-        }
+            if (state.description !== "") {
+                await setDesc({
+                    variables: {
+                        ticketid: `${ticketid}`,
+                        desc: `${state.description}`,
+                    },
+                });
+                let oldValue: string = data.getTicketDataById[0].description!;
+                addHistory({
+                    variables: {
+                        propertyChanged: "TicketDescription",
+                        newValue: state.description,
+                        oldValue,
+                        parentid,
+                    },
+                });
+            }
 
-        if (state.status !== "") {
-            let oldValue: string = data.getTicketDataById[0].status!;
-            await setStatus({
-                variables: {
-                    ticketid: `${ticketid}`,
-                    status: `${state.status}`,
-                },
-            });
-            await addHistory({
-                variables: {
-                    propertyChanged: "TicketStatus",
-                    oldValue,
-                    parentid,
-                    newValue: state.status,
-                },
-            });
-        }
+            if (state.status !== "") {
+                let oldValue: string = data.getTicketDataById[0].status!;
+                await setStatus({
+                    variables: {
+                        ticketid: `${ticketid}`,
+                        status: `${state.status}`,
+                    },
+                });
+                await addHistory({
+                    variables: {
+                        propertyChanged: "TicketStatus",
+                        oldValue,
+                        parentid,
+                        newValue: state.status,
+                    },
+                });
+            }
 
-        if (state.priority !== "") {
-            let oldValue: string = data.getTicketDataById[0].priority!;
-            await setPriority({
-                variables: {
-                    ticketid: `${ticketid}`,
-                    priority: `${state.priority}`,
-                },
-            });
-            addHistory({
-                variables: {
-                    propertyChanged: "TicketPriority",
-                    oldValue,
-                    parentid,
-                    newValue: state.priority,
-                },
-            });
-        }
+            if (state.priority !== "") {
+                let oldValue: string = data.getTicketDataById[0].priority!;
+                await setPriority({
+                    variables: {
+                        ticketid: `${ticketid}`,
+                        priority: `${state.priority}`,
+                    },
+                });
+                addHistory({
+                    variables: {
+                        propertyChanged: "TicketPriority",
+                        oldValue,
+                        parentid,
+                        newValue: state.priority,
+                    },
+                });
+            }
 
-        if (state.type !== "") {
-            let oldValue: string = data.getTicketDataById[0].type!;
-            await setType({
-                variables: {
-                    ticketid: `${ticketid}`,
-                    type: `${state.type}`,
-                },
-            });
-            addHistory({
-                variables: {
-                    propertyChanged: "TicketType",
-                    oldValue,
-                    parentid,
-                    newValue: state.type,
-                },
-            });
-        }
+            if (state.type !== "") {
+                let oldValue: string = data.getTicketDataById[0].type!;
+                await setType({
+                    variables: {
+                        ticketid: `${ticketid}`,
+                        type: `${state.type}`,
+                    },
+                });
+                addHistory({
+                    variables: {
+                        propertyChanged: "TicketType",
+                        oldValue,
+                        parentid,
+                        newValue: state.type,
+                    },
+                });
+            }
 
-        if (state.projectid !== "") {
-            let oldValue: string = data.getTicketDataById[0].belongsto;
-            await SetTicketProject({
-                variables: {
-                    ticketid,
-                    projectid: state.projectid,
-                },
-            });
+            if (state.projectid !== "") {
+                let oldValue: string = data.getTicketDataById[0].belongsto;
+                await SetTicketProject({
+                    variables: {
+                        ticketid,
+                        projectid: state.projectid,
+                    },
+                });
 
-            addHistory({
-                variables: {
-                    propertyChanged: "ParentOfTicket",
-                    oldValue: `ProjectId: ${oldValue}`,
-                    parentid,
-                    newValue: `ProjectId: ${state.projectid}`,
-                },
-            });
+                addHistory({
+                    variables: {
+                        propertyChanged: "ParentOfTicket",
+                        oldValue: `ProjectId: ${oldValue}`,
+                        parentid,
+                        newValue: `ProjectId: ${state.projectid}`,
+                    },
+                });
+            }
+
+            if (state.developer !== "") {
+                let oldValue: string = data.getTicketDataById[0].developer;
+                if (user.role === "admin" || user.role === "project-manager") {
+                    await setDeveloper({
+                        variables: {
+                            ticketid,
+                            developer: state.developer,
+                        },
+                    });
+
+                    addHistory({
+                        variables: {
+                            propertyChanged: "AssignedDeveloper",
+                            oldValue,
+                            parentid,
+                            newValue: state.developer,
+                        },
+                    });
+                }
+            }
+        } catch (err) {
+            M.toast({ html: "Could not update Ticket" });
+            M.toast({ html: `Error : ${err}` });
         }
 
         window.location.reload();
     };
+    console.log("Users :>> ", Users);
 
     const deleteTicket = async () => {
         await DeleteThisTicket({
@@ -309,11 +340,80 @@ export const EditTicket: React.FC = () => {
                                 <th>SUBMITTER</th>
                             </tr>
 
-                            <DevSub
-                                developer={`${data.getTicketDataById[0].developer}`}
-                                submitter={`${data.getTicketDataById[0].submitter}`}
-                            />
-
+                            <tr>
+                                <td>
+                                    {user.role === "admin" ||
+                                    user.role === "project-manager" ? (
+                                        <span>
+                                            <a
+                                                className="dropdown-trigger btn manage-dropdown"
+                                                href="#!"
+                                                data-target="dropdowndev"
+                                            >
+                                                {state.developer !== "" ? (
+                                                    <span>
+                                                        {state.developer}
+                                                    </span>
+                                                ) : (
+                                                    (
+                                                        <span>
+                                                            {
+                                                                data
+                                                                    .getTicketDataById[0]
+                                                                    .developer
+                                                            }
+                                                        </span>
+                                                    ) || <span>No Status</span>
+                                                )}
+                                            </a>
+                                            <ul
+                                                id="dropdowndev"
+                                                className="dropdown-content"
+                                            >
+                                                {Users!.map((_val, i) => {
+                                                    return (
+                                                        <li key={i}>
+                                                            <button
+                                                                className="btnDropdown"
+                                                                name={`${
+                                                                    Users![i]
+                                                                        .username
+                                                                }`}
+                                                                onClick={e =>
+                                                                    setState({
+                                                                        ...state,
+                                                                        developer: Users![
+                                                                            i
+                                                                        ]
+                                                                            .username,
+                                                                    })
+                                                                }
+                                                            >
+                                                                {
+                                                                    Users![i]
+                                                                        .username
+                                                                }
+                                                            </button>
+                                                        </li>
+                                                    );
+                                                })}
+                                            </ul>
+                                        </span>
+                                    ) : (
+                                        <span className="capitalize">
+                                            {
+                                                data.getTicketDataById[0]
+                                                    .developer
+                                            }
+                                        </span>
+                                    )}
+                                </td>
+                                <td>
+                                    <span className="capitalize">
+                                        {data.getTicketDataById[0].submitter}
+                                    </span>
+                                </td>
+                            </tr>
                             <tr>
                                 <th>BELONGS TO PROJECT</th>
                                 <th>TICKET PRIORITY</th>

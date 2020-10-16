@@ -33,10 +33,10 @@ export const EditPTTable: React.FC = () => {
                             <td className="capitalize">
                                 {getProjectTickets[i].title}
                             </td>
-                            <td className="capitalize">
+                            <td className="capitalize nonessen">
                                 {getProjectTickets[i].submitter}
                             </td>
-                            <td className="capitalize">
+                            <td className="capitalize nonessen">
                                 {getProjectTickets[i].developer}
                             </td>
                             <td className="capitalize">
@@ -59,13 +59,10 @@ export const EditPTTable: React.FC = () => {
                 <td>
                     <a href={`#/project-add:${id}`}>
                         <button className="btn safe-btn white-text w-100">
-                            Add Ticket
+                            AddTicket
                         </button>
                     </a>
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
         </tbody>
     );

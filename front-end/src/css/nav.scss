@@ -4,6 +4,7 @@ html {
 a {
     outline: none;
 }
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -12,6 +13,12 @@ a {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently
                                 supported by Chrome, Edge, Opera and Firefox */
+}
+
+.preloader-wrapper {
+    position: absolute;
+    top: 45%;
+    left: 50%;
 }
 
 .capitalize {

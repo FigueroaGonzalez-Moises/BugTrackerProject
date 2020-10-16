@@ -79,7 +79,7 @@ export const Dashboard: React.FC = () => {
     }
 
     return (
-        <span>
+        <>
             <div className="fixed-action-btn">
                 {/* eslint-disable-next-line */}
                 <a
@@ -101,7 +101,10 @@ export const Dashboard: React.FC = () => {
             <div className="row">
                 {state.Cards.map(function (_val: any, i: any) {
                     return (
-                        <div className="col s11 m6 chart-lengthen" key={i}>
+                        <div
+                            className="col s10 offset-s1 m6 offset-m1 l6 xl4 container"
+                            key={i}
+                        >
                             <div className="card">
                                 <div className="card-content">
                                     <div className="row">
@@ -460,6 +463,6 @@ export const Dashboard: React.FC = () => {
                     );
                 })}
             </div>
-        </span>
+        </>
     );
 };

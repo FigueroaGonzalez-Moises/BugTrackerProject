@@ -18,7 +18,7 @@ const TicketHistory = () => {
     return (
         <>
             <div className="container">
-                <div className="center-align table-wrapper">
+                <div className="center-align table-wrapper table-mb">
                     <span className="table-header z-depth-2">
                         <h2 className="white-text noselect">
                             History for Ticket #{parentid}
@@ -31,7 +31,7 @@ const TicketHistory = () => {
                                     <th>Property</th>
                                     <th>Old Value</th>
                                     <th>New Value</th>
-                                    <th>Date Changed</th>
+                                    <th className="nonessen">Date Changed</th>
                                 </tr>
 
                                 {!data || !data.getHistory.map ? (
@@ -58,7 +58,7 @@ const TicketHistory = () => {
                                                             .newValue
                                                     }
                                                 </td>
-                                                <td className="capitalize">
+                                                <td className="capitalize nonessen">
                                                     {
                                                         data.getHistory[i]
                                                             .dateChanged

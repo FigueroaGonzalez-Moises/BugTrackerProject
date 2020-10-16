@@ -1,17 +1,11 @@
 import { useGetUsersQuery } from "../../generated/graphql";
 
 export const useGetUsers = () => {
-    
     const { data, loading } = useGetUsersQuery();
 
-    if(loading || !data) {
-
+    if (loading || !data) {
     } else {
-        let UsersArray = data.getUsers
-        return {
-            UsersArray
-        }
+        let UsersArray = data.getUsers;
+        return UsersArray;
     }
-
-
-}
+};

@@ -101,7 +101,7 @@ export const ProjectDetails: React.FC = () => {
                             </table>
 
                             <div className="row">
-                                <span className="col s5 m5 l5 xl5">
+                                <span className="col s12 m5 l5 xl5">
                                     <span className="personnel-header z-depth-2 col s12 m12 l12 xl12">
                                         <h3 className="white-text">
                                             Assigned Personnel
@@ -152,7 +152,7 @@ export const ProjectDetails: React.FC = () => {
                                                         </i>
                                                     </b>
                                                 </th>
-                                                <th className="nonessen">
+                                                <th>
                                                     <b>
                                                         Role
                                                         <i
@@ -181,7 +181,7 @@ export const ProjectDetails: React.FC = () => {
                                                 (_val, i): JSX.Element => {
                                                     return (
                                                         <tr key={i}>
-                                                            <td className="capitalize nonessen">
+                                                            <td className="capitalize">
                                                                 {
                                                                     AssignedUsers![
                                                                         i
@@ -210,7 +210,7 @@ export const ProjectDetails: React.FC = () => {
                                     </table>
                                 </span>
 
-                                <span className="col s5 m5 l5 xl5 offset-s2 offset-m2 offset-l2 offset-xl2">
+                                <span className="col s12 m5 l5 xl5 offset-m2 offset-l2 offset-xl2">
                                     <span className="tickets-header z-depth-2 col s12 m12 l12 xl12">
                                         <h3 className="white-text">
                                             Tickets for Project #{id}

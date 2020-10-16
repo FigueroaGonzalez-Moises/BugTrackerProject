@@ -24,8 +24,8 @@ export const MobileSideNav = () => {
                         <b>Welcome, {user.username}</b>
                     </span>
                     <p>
-                        {" "}
-                        {user.email} <br />
+                        {user.email}
+                        <br />
                         <span className="noselect capitalize">
                             Current Role: {user.role}
                         </span>
@@ -38,7 +38,6 @@ export const MobileSideNav = () => {
             <li className="btnli">
                 <a href="#/dashboard" className="navLink" id="mobile-dashboard">
                     <button className="btn">
-                        {" "}
                         <i className="left material-icons">dashboard</i>{" "}
                         <span className="left">Dashboard</span>
                     </button>
@@ -52,7 +51,6 @@ export const MobileSideNav = () => {
                         id="mobile-man-roles"
                     >
                         <button className="btn">
-                            {" "}
                             <i className="left material-icons">
                                 people_outline
                             </i>
@@ -69,9 +67,8 @@ export const MobileSideNav = () => {
                         id="mobile-man-projects"
                     >
                         <button className="btn">
-                            {" "}
                             <i className="left material-icons">people</i>
-                            <span className="left">Manage Projects</span>
+                            <span className="left">Man Projects</span>
                         </button>
                     </a>
                 </li>
@@ -79,7 +76,6 @@ export const MobileSideNav = () => {
             <li className="btnli">
                 <a href="#/projects" className="navLink" id="mobile-projects">
                     <button className="btn">
-                        {" "}
                         <i className="left material-icons">widgets</i>
                         <span className="left">My Projects</span>
                     </button>
@@ -88,7 +84,6 @@ export const MobileSideNav = () => {
             <li className="btnli">
                 <a href="#/tickets" className="navLink" id="mobile-tickets">
                     <button className="btn">
-                        {" "}
                         <i className="left material-icons">local_offer</i>
                         <span className="left">My Tickets</span>
                     </button>

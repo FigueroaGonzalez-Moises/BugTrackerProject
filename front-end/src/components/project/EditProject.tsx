@@ -100,7 +100,7 @@ export const EditProject: React.FC = () => {
                 </span>
 
                 <span className="table-body z-depth-1">
-                    <table className="responsive-table striped">
+                    <table className="striped">
                         <thead>
                             <tr>
                                 <th>Project Title</th>
@@ -160,20 +160,20 @@ export const EditProject: React.FC = () => {
                     </table>
 
                     <div className="row">
-                        <span className="col s5 m5 l5 xl5">
+                        <span className="col s12 m5 l5 xl5">
                             <span className="personnel-header z-depth-2 col s12 m12 l12 xl12">
                                 <h3 className="white-text">
                                     Assigned Personnel
                                 </h3>
                             </span>
 
-                            <table className="responsive-table striped">
+                            <table className="striped">
                                 <thead>
                                     <tr>
                                         <th>
                                             <b>User Name</b>
                                         </th>
-                                        <th>
+                                        <th className="nonessen">
                                             <b>Email</b>
                                         </th>
                                         <th>
@@ -185,23 +185,23 @@ export const EditProject: React.FC = () => {
                             </table>
                         </span>
 
-                        <span className="col s5 m5 l5 xl5 offset-s2 offset-m2 offset-l2 offset-xl2">
+                        <span className="col s12 m5 l5 xl5 offset-m2 offset-l2 offset-xl2">
                             <span className="tickets-header z-depth-2 col s12 m12 l12 xl12">
                                 <h3 className="white-text">
                                     Tickets for Project #{id}
                                 </h3>
                             </span>
 
-                            <table className="responsive-table striped">
+                            <table className="striped">
                                 <thead>
                                     <tr>
                                         <th>
                                             <b>Title</b>
                                         </th>
-                                        <th>
+                                        <th className="nonessen">
                                             <b>Submitter</b>
                                         </th>
-                                        <th>
+                                        <th className="nonessen">
                                             <b>Developer</b>
                                         </th>
                                         <th>
