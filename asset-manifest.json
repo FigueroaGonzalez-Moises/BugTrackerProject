@@ -1,27 +1,26 @@
 {
   "files": {
-    "main.css": "/BugTrackerProject/static/css/main.eb0e6f4f.chunk.css",
-    "main.js": "/BugTrackerProject/static/js/main.5c837420.chunk.js",
-    "main.js.map": "/BugTrackerProject/static/js/main.5c837420.chunk.js.map",
+    "main.css": "/BugTrackerProject/static/css/main.745677cc.chunk.css",
+    "main.js": "/BugTrackerProject/static/js/main.437d9b9f.chunk.js",
+    "main.js.map": "/BugTrackerProject/static/js/main.437d9b9f.chunk.js.map",
     "runtime-main.js": "/BugTrackerProject/static/js/runtime-main.2e5ba3e5.js",
     "runtime-main.js.map": "/BugTrackerProject/static/js/runtime-main.2e5ba3e5.js.map",
     "static/css/2.53159467.chunk.css": "/BugTrackerProject/static/css/2.53159467.chunk.css",
-    "static/js/2.9f0a4926.chunk.js": "/BugTrackerProject/static/js/2.9f0a4926.chunk.js",
-    "static/js/2.9f0a4926.chunk.js.map": "/BugTrackerProject/static/js/2.9f0a4926.chunk.js.map",
+    "static/js/2.03136d75.chunk.js": "/BugTrackerProject/static/js/2.03136d75.chunk.js",
+    "static/js/2.03136d75.chunk.js.map": "/BugTrackerProject/static/js/2.03136d75.chunk.js.map",
     "index.html": "/BugTrackerProject/index.html",
-    "precache-manifest.bfe7a3a78777df3cad2c50377b617511.js": "/BugTrackerProject/precache-manifest.bfe7a3a78777df3cad2c50377b617511.js",
+    "precache-manifest.7feaac6067b5ff5e678c05c7695ea62e.js": "/BugTrackerProject/precache-manifest.7feaac6067b5ff5e678c05c7695ea62e.js",
     "service-worker.js": "/BugTrackerProject/service-worker.js",
     "static/css/2.53159467.chunk.css.map": "/BugTrackerProject/static/css/2.53159467.chunk.css.map",
-    "static/css/main.eb0e6f4f.chunk.css.map": "/BugTrackerProject/static/css/main.eb0e6f4f.chunk.css.map",
-    "static/js/2.9f0a4926.chunk.js.LICENSE.txt": "/BugTrackerProject/static/js/2.9f0a4926.chunk.js.LICENSE.txt",
-    "static/media/login.scss": "/BugTrackerProject/static/media/black-rock-tiles.21ab1413.jpg",
-    "static/media/unnamed.webp": "/BugTrackerProject/static/media/unnamed.a812fbf5.webp"
+    "static/css/main.745677cc.chunk.css.map": "/BugTrackerProject/static/css/main.745677cc.chunk.css.map",
+    "static/js/2.03136d75.chunk.js.LICENSE.txt": "/BugTrackerProject/static/js/2.03136d75.chunk.js.LICENSE.txt",
+    "static/media/login.scss": "/BugTrackerProject/static/media/black-rock-tiles.21ab1413.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.2e5ba3e5.js",
     "static/css/2.53159467.chunk.css",
-    "static/js/2.9f0a4926.chunk.js",
-    "static/css/main.eb0e6f4f.chunk.css",
-    "static/js/main.5c837420.chunk.js"
+    "static/js/2.03136d75.chunk.js",
+    "static/css/main.745677cc.chunk.css",
+    "static/js/main.437d9b9f.chunk.js"
   ]
 }
