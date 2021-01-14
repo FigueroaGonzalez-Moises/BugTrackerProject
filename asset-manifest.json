@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/BugTrackerProject/static/css/main.745677cc.chunk.css",
-    "main.js": "/BugTrackerProject/static/js/main.925921ef.chunk.js",
-    "main.js.map": "/BugTrackerProject/static/js/main.925921ef.chunk.js.map",
+    "main.js": "/BugTrackerProject/static/js/main.8ebe0c39.chunk.js",
+    "main.js.map": "/BugTrackerProject/static/js/main.8ebe0c39.chunk.js.map",
     "runtime-main.js": "/BugTrackerProject/static/js/runtime-main.2e5ba3e5.js",
     "runtime-main.js.map": "/BugTrackerProject/static/js/runtime-main.2e5ba3e5.js.map",
     "static/css/2.53159467.chunk.css": "/BugTrackerProject/static/css/2.53159467.chunk.css",
     "static/js/2.03136d75.chunk.js": "/BugTrackerProject/static/js/2.03136d75.chunk.js",
     "static/js/2.03136d75.chunk.js.map": "/BugTrackerProject/static/js/2.03136d75.chunk.js.map",
     "index.html": "/BugTrackerProject/index.html",
-    "precache-manifest.324b8c5e364d64672f6c95ecb9efeaf6.js": "/BugTrackerProject/precache-manifest.324b8c5e364d64672f6c95ecb9efeaf6.js",
+    "precache-manifest.f0fcf808cabf6552f6a982869efe7b24.js": "/BugTrackerProject/precache-manifest.f0fcf808cabf6552f6a982869efe7b24.js",
     "service-worker.js": "/BugTrackerProject/service-worker.js",
     "static/css/2.53159467.chunk.css.map": "/BugTrackerProject/static/css/2.53159467.chunk.css.map",
     "static/css/main.745677cc.chunk.css.map": "/BugTrackerProject/static/css/main.745677cc.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.53159467.chunk.css",
     "static/js/2.03136d75.chunk.js",
     "static/css/main.745677cc.chunk.css",
-    "static/js/main.925921ef.chunk.js"
+    "static/js/main.8ebe0c39.chunk.js"
   ]
 }
